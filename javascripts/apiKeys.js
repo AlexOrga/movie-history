@@ -15,7 +15,7 @@ const apiKeys = () => {
 const retrieveKeys = () => {
   apiKeys()
     .then((results) => {
-      tmdb.setKey(results.tmdb);
+      tmdb.setKey(results.tmdb.apiKey);
     })
     .catch((err) => {
       console.error('no keys', err);
