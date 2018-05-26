@@ -1,7 +1,9 @@
 const domString = (movieArray, config) => {
   let string = '';
-  movieArray.forEach((movie) => {
-
+  movieArray.forEach((movie, index) => {
+    if (index % 3 === 0) {
+      string += `<div class="row">`;
+    }
     string += `<div class="col-sm-6 col-md-4">`;
     string +=  `<div class="thumbnail">`;
     string +=    `<img src="${config.base_url}/w342/${movie.poster_path}" alt="Movie Poster">`;
@@ -12,6 +14,10 @@ const domString = (movieArray, config) => {
     string +=    `</div>`;
     string +=  `</div>`;
     string += `</div>`;
+
+    if (index % 3 === 2) {
+      string += `</div>`;
+    }
   });
   printToDom(string);
 };
