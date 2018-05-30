@@ -2,6 +2,7 @@
 
 const tmdb = require('./tmdb');
 const firebaseAPI = require('./firebaseAPI');
+const dom = require('./dom');
 
 const myLinks = () => {
   $(document).click((e) => {
@@ -13,6 +14,8 @@ const myLinks = () => {
       $('#myMovies').removeClass('hide');
       $('#search').addClass('hide');
       $('#authScreen').addClass('hide');
+      // Call getMoviesEvent
+      getAllMoviesEvent();
     } else if (e.target.id === 'search-nav') {
       $('#search').removeClass('hide');
       $('#authScreen').addClass('hide');
@@ -48,6 +51,16 @@ const saveMovieToWishlistEvent = () => {
         console.error('error in saving movie', error);
       });
   });
+};
+
+const getAllMoviesEvent = () => {
+  firebaseAPI.getAllMovies()
+    .then((moviesArray) => {
+      dom.domString(moviesArray, tmdb.getImageConfig(), 'savedMovies');
+    })
+    .catch((error) => {
+      console.error('error in get all movies', error);
+    });
 };
 
 const initializer = () => {
