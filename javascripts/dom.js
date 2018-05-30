@@ -1,6 +1,6 @@
 /* eslint camelcase: 0 */
 
-const domString = (movieArray, config) => {
+const domString = (movieArray, config, whereToPrint) => {
   let string = '';
   movieArray.forEach((movie, index) => {
     if (index % 3 === 0) {
@@ -10,7 +10,7 @@ const domString = (movieArray, config) => {
     string +=  `<div class="thumbnail movie">`;
     string +=    `<img data-poster="${movie.poster_path}" src="${config.base_url}/w342/${movie.poster_path}" alt="Movie Poster">`;
     string +=    `<div class="caption">`;
-    string +=      `<h3 class="movie-title">${movie.original_title}</h3>`;
+    string +=      `<h3 class="movie-title">${movie.original_title ? movie.original_title : movie.title}</h3>`;
     string +=      `<p class="movie-overview">${movie.overview}</p>`;
     string +=      `<p><a href="#" class="btn btn-primary" role="button">Review</a></p>`;
     string +=      `<p><a href="#" class="btn btn-default addMovieToWishlist" role="button">Wishlist</a></p>`;
@@ -22,11 +22,11 @@ const domString = (movieArray, config) => {
       string += `</div>`;
     }
   });
-  printToDom(string);
+  printToDom(whereToPrint, string);
 };
 
-const printToDom = (stringz) => {
-  $('#movies').html(stringz);
+const printToDom = (whereToPrint, stringz) => {
+  $(`#${whereToPrint}`).html(stringz);
 };
 
 module.exports = {
