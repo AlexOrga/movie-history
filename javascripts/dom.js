@@ -7,7 +7,7 @@ const domString = (movieArray, config, whereToPrint, myCollectionMode = false) =
       string += `<div class="row">`;
     }
     string += `<div class="col-sm-6 col-md-4">`;
-    string +=  `<div class="thumbnail movie">`;
+    string +=  `<div class="thumbnail movie" data-firebase-id="${movie.id}">`;
     if (myCollectionMode) {
       string += `<a class="btn deleteMovieFromCollectionEvent">X</a>`;
     }
