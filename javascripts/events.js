@@ -140,6 +140,8 @@ const authEvents = () => {
         $('#myMovies').removeClass('hide');
         $('#search').addClass('hide');
         $('#authScreen').addClass('hide');
+        // Show Navigation Tabs
+        // Call getMoviesEvent
         getAllMoviesEvent();
       })
       .catch((error) => {
@@ -147,6 +149,17 @@ const authEvents = () => {
         const errorMessage = error.message;
         console.error(errorMessage);
         // ...
+      });
+  });
+
+  $('#registerBtn').click(() => {
+    const email = $('#registerEmail').val();
+    const pass = $('#registerPassword').val();
+    firebase.auth().createUserWithEmailAndPassword(email, pass)
+      .catch((error) => {
+        // Handle Errors here.
+        const errorMessage = error.message;
+        console.error('Error registering', errorMessage);
       });
   });
   $('#register-link').click(() => {
@@ -157,6 +170,19 @@ const authEvents = () => {
   $('#signin-link').click(() => {
     $('#login-form').removeClass('hide');
     $('#registration-form').addClass('hide');
+  });
+
+  $('#logout-nav').click(() => {
+    firebase.auth().signOut()
+      .then(() => {
+        // Sign-out successful.
+        $('#authScreen').removeClass('hide');
+        $('#search').addClass('hide');
+        $('#myMovies').addClass('hide');
+      }).catch((error) => {
+        // An error happened.
+        console.error('Error logging out', error);
+      });
   });
 };
 
@@ -172,4 +198,5 @@ const initializer = () => {
 
 module.exports = {
   initializer,
+  getAllMoviesEvent,
 };
