@@ -143,9 +143,12 @@ const authEvents = () => {
         // Show Navigation Tabs
         // Call getMoviesEvent
         getAllMoviesEvent();
+        $('#signin-error').addClass('hide');
       })
       .catch((error) => {
         // Handle Errors here.
+        $('#signin-error-msg').text(error.message);
+        $('#signin-error').removeClass('hide');
         const errorMessage = error.message;
         console.error(errorMessage);
         // ...
@@ -158,6 +161,8 @@ const authEvents = () => {
     firebase.auth().createUserWithEmailAndPassword(email, pass)
       .catch((error) => {
         // Handle Errors here.
+        $('#register-error-msg').text(error.message);
+        $('#register-error').removeClass('hide');
         const errorMessage = error.message;
         console.error('Error registering', errorMessage);
       });
